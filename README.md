@@ -2,8 +2,9 @@
 
 [![Website](https://img.shields.io/badge/Website-kernels--website-blue)](https://github.com/PawScale/kernels-website)
 
-Severity Package Platform Link
-N/A metal-compute-kernels Apple Silicon (macOS / iOS) —
+| Severity | Package   | Platform               | Link      |
+| -------- | --------- | ---------------------- | --------- |
+| N/A      | `Kernels` | Apple Silicon (macOS/iOS) | [Docs](/Documentation/GettingStarted.md) |
 
 A Swift-based framework for GPU compute on Apple Silicon using Apple’s Metal API.
 
