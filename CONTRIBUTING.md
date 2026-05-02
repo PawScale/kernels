@@ -1,4 +1,4 @@
-# Contributing to Metal Compute Kernels
+# Contributing to Kernels
 
 Thank you for your interest in contributing! This document provides guidelines for contributing to the project.
 
@@ -11,8 +11,8 @@ Be respectful, inclusive, and constructive in all interactions.
 1. **Fork the repository**
 
    ```bash
-   git clone https://github.com/bniladridas/metal-kernels.git
-   cd metal-kernels
+   git clone https://github.com/PawScale/kernels.git
+   cd kernels
    ```
 
 2. **Create a feature branch**
@@ -24,15 +24,38 @@ Be respectful, inclusive, and constructive in all interactions.
 3. **Build and test**
 
    ```bash
-   swift build
-   swift run MetalKernels
+   swift build --target Kernels
+   swift run KernelsDemo
+   swift test --filter KernelsTests
    ```
+
+## Project Structure
+
+```
+Sources/
+  Kernels/          # Library target (public API)
+    MetalCompute.swift
+    kernels.metal   # Metal shader source
+  KernelsDemo/      # Executable demo
+    main.swift
+    kernels.metal   # Demo-specific Metal shaders
+Tests/
+  KernelsTests.swift
+Benchmarks/
+  PerformanceBenchmark.swift
+Documentation/
+  GettingStarted.md
+  APIReference.md
+Examples/
+  VectorAddition.swift
+  README.md
+```
 
 ## Areas for Contribution
 
 ### 1. New Kernels
 
-Add new Metal compute kernels for:
+Add new Metal compute kernels to `Sources/Kernels/kernels.metal`:
 
 * RNN layers (LSTM, GRU)
 * Transformer attention
@@ -42,10 +65,10 @@ Add new Metal compute kernels for:
 
 **Steps:**
 
-1. Add Metal kernel code to the `metalCode` string in `MetalCompute.init()`
-2. Add Swift host function in `MetalCompute` class
-3. Add test case in `main.swift`
-4. Document in `README.md`
+1. Write the Metal kernel function in `kernels.metal`
+2. Add a public Swift method in `MetalCompute.swift` that dispatches the kernel
+3. Add a demo invocation in `Sources/KernelsDemo/main.swift`
+4. Add test cases in `Tests/KernelsTests.swift`
 
 ### 2. Performance Optimization
 
@@ -71,7 +94,6 @@ Add new Metal compute kernels for:
 
 ### 5. Cross-platform Support
 
-* Vulkan compute backend for non-Apple devices
 * Metal on iOS, tvOS, macOS variants
 * Support for older Metal versions
 
@@ -152,8 +174,8 @@ Related issues: #42
 2. **Ensure code builds**
 
    ```bash
-   swift build -v
-   swift run MetalKernels
+   swift build --target Kernels
+   swift test --filter KernelsTests
    ```
 
 3. **Add tests**
@@ -164,7 +186,7 @@ Related issues: #42
 
 ## Performance Benchmarking
 
-Include benchmarks comparing GPU and CPU performance.
+Include benchmarks comparing GPU and CPU performance. Use `Benchmarks/PerformanceBenchmark.swift` as a starting point.
 
 ## Debugging Tips
 
@@ -172,15 +194,15 @@ Include benchmarks comparing GPU and CPU performance.
 
 * Check syntax
 * Verify buffer indices
-* Ensure threadgroup memory
+* Ensure threadgroup memory declarations match usage
 * Look for reserved keyword conflicts
 
 ### Runtime Issues
 
 * Check `MTLBuffer` sizes
-* Verify buffer indices
+* Verify buffer indices match between Metal and Swift
 * Use `waitUntilCompleted()` for debugging
-* Print thread counts
+* Print thread counts and grid sizes
 
 ## Testing on Multiple Devices
 
@@ -192,12 +214,21 @@ Include benchmarks comparing GPU and CPU performance.
 
 ## Documentation Requirements
 
-Every kernel needs:
+Every new kernel needs:
 
-1. In-code comments
-2. README.md entry with example
-3. Performance table
-4. Use case description
+1. In-code comments explaining the algorithm
+2. Entry in `Documentation/APIReference.md`
+3. Example in `Examples/`
+4. Performance notes
+
+## CI/CD
+
+All PRs run the build and test workflow. Ensure your changes pass:
+
+```bash
+swift build --target Kernels
+swift test --filter KernelsTests
+```
 
 ## Licensing
 
@@ -207,7 +238,6 @@ All contributions are under the MIT License.
 
 * GitHub Issues: for bugs and features
 * GitHub Discussions: for questions and ideas
-* Email: [harpertoken@icloud.com](mailto:harpertoken@icloud.com)
 
 ---
 
