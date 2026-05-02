@@ -2,18 +2,37 @@
 import PackageDescription
 
 let package = Package(
-    name: "MetalKernels",
+    name: "Kernels",
     platforms: [
-        .macOS(.v12)
+        .macOS(.v12),
+        .iOS(.v14)
+    ],
+    products: [
+        .library(name: "Kernels", targets: ["Kernels"]),
+        .executable(name: "KernelsDemo", targets: ["KernelsDemo"])
     ],
     dependencies: [],
     targets: [
-        .executableTarget(
-            name: "MetalKernels",
+        .target(
+            name: "Kernels",
             dependencies: [],
+            path: "Sources/Kernels",
             resources: [
                 .copy("kernels.metal")
             ]
+        ),
+        .executableTarget(
+            name: "KernelsDemo",
+            dependencies: ["Kernels"],
+            path: "Sources/KernelsDemo",
+            resources: [
+                .copy("kernels.metal")
+            ]
+        ),
+        .testTarget(
+            name: "KernelsTests",
+            dependencies: ["Kernels"],
+            path: "Tests"
         )
     ]
 )
