@@ -33,4 +33,4 @@ kernel void vector_add(
 
 Key differences include the replacement of `blockIdx`/`threadIdx` with `thread_position_in_grid`, explicit `device` address space qualifiers with buffer bindings, and dispatch-controlled grid sizing instead of in-kernel bounds checks.
 
-[`Website`](https://github.com/PawScale/kernels-website) · [`Documentation`](https://github.com/PawScale/kernels-website) · [`Swift GUIDANCE`](/QUICK_REFERENCE.md)
+[`Website`](https://PawScale.github.io/kernels-website) · [`Documentation`](/Documentation/GettingStarted.md) · [`API Reference`](/Documentation/APIReference.md) · [`Swift GUIDANCE`](/QUICK_REFERENCE.md)
