@@ -1,33 +1,34 @@
+---
 name: Lint and Code Quality
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main, develop ]
+    branches: [main, develop]
 
 jobs:
   lint:
     runs-on: macos-latest
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Set up Swift
-      uses: swift-actions/setup-swift@v1
-      with:
-        swift-version: "5.9"
+      - name: Set up Swift
+        uses: swift-actions/setup-swift@v1
+        with:
+          swift-version: "5.9"
 
-    - name: Run SwiftLint
-      run: |
-        if command -v swiftlint &> /dev/null; then
-          swiftlint
-        else
-          echo "SwiftLint not installed"
-        fi
+      - name: Run SwiftLint
+        run: |
+          if command -v swiftlint &> /dev/null; then
+            swiftlint
+          else
+            echo "SwiftLint not installed"
+          fi
 
-    - name: Install yamllint
-      run: pip install yamllint
+      - name: Install yamllint
+        run: pip install yamllint
 
-    - name: Check YAML syntax
-      run: yamllint -c .yamllint .
+      - name: Check YAML syntax
+        run: yamllint -c .yamllint .
