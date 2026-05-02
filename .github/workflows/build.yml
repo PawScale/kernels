@@ -1,0 +1,43 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Swift
+      uses: swift-actions/setup-swift@v1
+      with:
+        swift-version: "5.9"
+
+    - name: Build
+      run: swift build -v
+
+    - name: Run tests
+      run: swift test -v
+
+    - name: Check formatting
+      run: |
+        if command -v swift-format &> /dev/null; then
+          swift-format --recursive Sources/ Tests/
+        fi
+
+  lint:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install yamllint
+      run: pip install yamllint
+
+    - name: Check YAML formatting
+      run: yamllint -c .yamllint .github/workflows/
