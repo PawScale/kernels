@@ -10,10 +10,19 @@ This repository uses an **intentional, label-gated release process**. Releases a
 
 Beta releases are **pre-production** builds intended for early testing and feedback.
 
-* Tag format: `vX.Y.Z-beta.N` (managed automatically)
+* Tag format: `vX.Y.Z-beta.N` or `beta`
 * GitHub Release marked as **Pre-release**
 * APIs and structure may change without notice
 * Not recommended for production use
+
+### Stable Releases
+
+Stable releases are production-ready versions.
+
+* Tag format: `vX.Y.Z` (e.g., `v1.0.0`)
+* GitHub Release marked as **Latest**
+* Follows semantic versioning
+* Suitable for production use
 
 ---
 
@@ -49,12 +58,23 @@ The `Automated Beta Release` workflow:
 **If the label is present:**
 
 * A beta release is created
-* Changelog is generated automatically
+* Changelog is generated automatically via `release-please-action`
 
 **If the label is NOT present:**
 
 * The workflow exits cleanly
 * No tag, no release, no noise
+
+---
+
+## Stable Releases
+
+Stable releases are created manually:
+
+1. Ensure `CHANGELOG.md` is up to date
+2. Create and push a tag: `git tag -a v1.0.0 -m "Release v1.0.0"`
+3. Push the tag: `git push origin v1.0.0`
+4. Create a GitHub Release from the tag
 
 ---
 
@@ -70,7 +90,12 @@ The `Automated Beta Release` workflow:
 
 ## Changelog Generation
 
-Changelogs are generated automatically from commit history using conventional commit types:
+Changelogs are generated:
+
+* **Automatically** via `release-please-action` for beta releases
+* **Manually** for stable releases
+
+Conventional commit types used:
 
 | Type       | Section       |
 | ---------- | ------------- |
