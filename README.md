@@ -1,5 +1,7 @@
 **Metal Compute Kernels for Swift**
 
+[![Website](https://img.shields.io/badge/Website-kernels--website-blue)](https://github.com/PawScale/kernels-website)
+
 Severity Package Platform Link
 N/A metal-compute-kernels Apple Silicon (macOS / iOS) —
 
@@ -31,4 +33,4 @@ kernel void vector_add(
 
 Key differences include the replacement of `blockIdx`/`threadIdx` with `thread_position_in_grid`, explicit `device` address space qualifiers with buffer bindings, and dispatch-controlled grid sizing instead of in-kernel bounds checks.
 
-[`Link & Swift GUIDANCE`](/QUICK_REFERENCE.md)
+[`Website`](https://github.com/PawScale/kernels-website) · [`Documentation`](https://github.com/PawScale/kernels-website) · [`Swift GUIDANCE`](/QUICK_REFERENCE.md)
