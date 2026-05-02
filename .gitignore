@@ -43,3 +43,4 @@ dist/
 *.tmp
 *.bak
 *~
+kernels-website/
